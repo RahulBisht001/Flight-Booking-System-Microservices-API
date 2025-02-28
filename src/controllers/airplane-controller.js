@@ -72,6 +72,17 @@ const getAirplane = async (req, res) => {
 	}
 };
 
+/**
+ *
+ *Delete the details of an airplane by its ID.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} req.params - The request parameters.
+ * @param {string} req.params.id - The ID of the airplane to delete.
+ * @param {Object} res - The response object.
+ * @returns {Promise<Response>} A JSON response indicating success or failure.
+ */
+
 const destroyAirplane = async (req, res) => {
 	try {
 		const response = await AirplaneService.destroyAirplane(req.params.id);
@@ -85,9 +96,26 @@ const destroyAirplane = async (req, res) => {
 	}
 };
 
+const updateAirplane = async (req, res) => {
+	try {
+		const updatedDetails = await AirplaneService.updateAirplane(
+			req.params.id,
+			req.body
+		);
+		SuccessResponse.message = "Successfully updated the details the airplane";
+		SuccessResponse.data = updatedDetails;
+
+		return res.status(StatusCodes.OK).json(SuccessResponse);
+	} catch (error) {
+		ErrorResponse.error = error;
+		return res.status(error.statusCode).json(ErrorResponse);
+	}
+};
+
 module.exports = {
 	createAirplane,
 	getAirplanes,
 	getAirplane,
 	destroyAirplane,
+	updateAirplane,
 };
