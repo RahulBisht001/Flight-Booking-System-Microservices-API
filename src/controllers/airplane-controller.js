@@ -31,6 +31,26 @@ const createAirplane = async (req, res) => {
 	}
 };
 
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ * @returns all the airplanes in the database
+ */
+const getAirplanes = async (req, res) => {
+	try {
+		const airplanes = await AirplaneService.getAirplanes();
+		SuccessResponse.message = "Successfully fetched the data of all airplanes";
+		SuccessResponse.data = airplanes;
+
+		return res.status(StatusCodes.OK).json(SuccessResponse);
+	} catch (error) {
+		ErrorResponse.error = error;
+		return res.status(error.statusCode).json(ErrorResponse);
+	}
+};
+
 module.exports = {
 	createAirplane,
+	getAirplanes,
 };

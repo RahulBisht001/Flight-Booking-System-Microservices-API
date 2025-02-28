@@ -8,5 +8,6 @@ router.post(
 	AirplaneMiddleware.validateCreateRequest,
 	AirplaneController.createAirplane
 );
+router.get("/", AirplaneController.getAirplanes);
 
 module.exports = router;
