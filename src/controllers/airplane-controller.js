@@ -50,7 +50,31 @@ const getAirplanes = async (req, res) => {
 	}
 };
 
+/**
+ * Retrieves the details of an airplane by its ID.
+ *
+ * @param {Object} req - The request object containing parameters.
+ * @param {Object} req.params - The request parameters.
+ * @param {string} req.params.id - The ID of the airplane to fetch.
+ * @param {Object} res - The response object.
+ * @returns {Promise<Object>} The response containing the airplane data or an error message.
+ */
+const getAirplane = async (req, res) => {
+	try {
+		const airplane = await AirplaneService.getAirplane(req.params.id);
+		SuccessResponse.message = "Successfully fetched the data of the airplane";
+		SuccessResponse.data = airplane;
+
+		return res.status(StatusCodes.OK).json(SuccessResponse);
+	} catch (error) {
+		ErrorResponse.error = error;
+		console.log(error);
+		return res.status(error.statusCode).json(ErrorResponse);
+	}
+};
+
 module.exports = {
 	createAirplane,
 	getAirplanes,
+	getAirplane,
 };

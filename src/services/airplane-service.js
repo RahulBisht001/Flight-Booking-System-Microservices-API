@@ -32,7 +32,22 @@ const getAirplanes = async () => {
 		return airplanes;
 	} catch (error) {
 		throw new AppError(
-			"Cannot fetch the data of all airplanes",
+			["Cannot fetch the data of all airplanes"],
+			StatusCodes.INTERNAL_SERVER_ERROR
+		);
+	}
+};
+
+const getAirplane = async (id) => {
+	try {
+		const airplane = await airplaneRepository.get(id);
+		return airplane;
+	} catch (error) {
+		if (error.statusCode == StatusCodes.NOT_FOUND) {
+			throw new AppError(["Airplane not found"], StatusCodes.NOT_FOUND);
+		}
+		throw new AppError(
+			["Cannot fetch the data of all airplanes"],
 			StatusCodes.INTERNAL_SERVER_ERROR
 		);
 	}
@@ -41,4 +56,5 @@ const getAirplanes = async () => {
 module.exports = {
 	createAirplane,
 	getAirplanes,
+	getAirplane,
 };
