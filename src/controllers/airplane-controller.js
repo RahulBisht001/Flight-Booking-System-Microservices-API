@@ -68,7 +68,19 @@ const getAirplane = async (req, res) => {
 		return res.status(StatusCodes.OK).json(SuccessResponse);
 	} catch (error) {
 		ErrorResponse.error = error;
-		console.log(error);
+		return res.status(error.statusCode).json(ErrorResponse);
+	}
+};
+
+const destroyAirplane = async (req, res) => {
+	try {
+		const response = await AirplaneService.destroyAirplane(req.params.id);
+		SuccessResponse.message = "Successfully deleted the airplane";
+		SuccessResponse.data = response;
+
+		return res.status(StatusCodes.OK).json(SuccessResponse);
+	} catch (error) {
+		ErrorResponse.error = error;
 		return res.status(error.statusCode).json(ErrorResponse);
 	}
 };
@@ -77,4 +89,5 @@ module.exports = {
 	createAirplane,
 	getAirplanes,
 	getAirplane,
+	destroyAirplane,
 };
