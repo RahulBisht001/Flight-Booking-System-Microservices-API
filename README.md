@@ -1,5 +1,8 @@
 # Flight Booking System - Microservices API
 
+
+<img src="./assets/Airline.svg" alt="Architecture Diagram"/>
+
 ## Overview:
 This workspace contains the API documentation and testing environment for a Flight Booking System built using a microservices architecture. The backend is developed with Node.js and Express, following a distributed system approach to handle different functionalities independently.
 
